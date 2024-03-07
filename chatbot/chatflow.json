@@ -1,0 +1,26 @@
+[
+    {
+        "question": "What is ChatFlow?",
+        "answer": "ChatFlow is a sleek, modern chatbot designed to provide instant responses to your queries."
+    },
+    {
+        "question": "Hello?",
+        "answer": "Hi! How are you doing today."
+    },
+    {
+        "question": "How can I use ChatFlow?",
+        "answer": "You can interact with ChatFlow by typing your questions into the chat interface, and it will respond with helpful information."
+    },
+    {
+        "question": "What features does ChatFlow have?",
+        "answer": "ChatFlow offers features such as instant replies, conversational context understanding, and easy integration with websites."
+    },
+    {
+        "question": "Is ChatFlow easy to set up?",
+        "answer": "Absolutely! ChatFlow is designed for ease of setup and can be integrated into your website with just a few lines of code."
+    },
+    {
+        "question": "Can ChatFlow handle complex queries?",
+        "answer": "Yes, ChatFlow is equipped to handle a wide range of complex questions, providing accurate and insightful answers."
+    }
+]
