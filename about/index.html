@@ -4,48 +4,19 @@
 <meta charset="UTF-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Section Name - Joy Jama's Portfolio</title>
+<title>About - Joy Jama's Portfolio</title>
 <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
+<!-- GSAP and ScrollTrigger scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+
 <style>
-  .navbar {
-    background-color: #f0f0f0; /* Match the color to your homepage */
-    padding: 10px 0; /* Add some padding */
-    margin-bottom: 20px; /* Space before the content */
-    text-align: center; /* Center the navigation links */
-  }
-  
-  .navbar a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-  }
+  /* Existing styles... */
 
-  .navbar a:hover {
-    text-decoration: underline;
+  /* Add some custom styles for your animated elements here */
+  .story-section {
+    opacity: 0; /* Start with sections hidden for the animation */
   }
-
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: #333;
-    background-color: #f0f0f0;
-  }
-
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Add other styles as needed */
 </style>
 </head>
 <body>
@@ -57,14 +28,40 @@
   <a href="/chatbot/">Chatbot</a> | 
   <a href="/webscraping/">Web Scraping</a> | 
   <a href="/app-highlight/">App Highlight</a> | 
-  <a href="/contact/">Contact</a> | 
+  <a href="/contact/">Contact</a>
 </div>
 
-<div class="content">
-  <h1>Section Name</h1>
-  <p>This section is under construction. Please check back soon!</p>
-  <!-- Your content goes here -->
+<div class="content" id="aboutContainer">
+  <h1>About Joy Jama</h1>
+  <div class="story-section intro">Hi, I'm Joy...</div>
+  <div class="story-section earlyBeginnings">In the beginning, there were computers...</div>
+  <!-- Add more story sections here -->
 </div>
+
+<script>
+  // Create a GSAP timeline
+  var tl = gsap.timeline({ 
+    defaults: { duration: 1 },
+    scrollTrigger: {
+      trigger: "#aboutContainer",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true
+    }
+  });
+
+  // Start the story
+  tl.from(".intro", { y: -50, opacity: 0 })
+    .to(".intro", { y: 0, opacity: 1 });
+
+  // Early Beginnings
+  tl.addLabel("earlyBeginnings")
+    .from(".earlyBeginnings", { x: -100, opacity: 0 })
+    .to(".earlyBeginnings", { x: 0, opacity: 1 });
+
+  // ... continue adding animations for other sections here
+
+</script>
 
 </body>
 </html>
