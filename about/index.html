@@ -5,62 +5,104 @@
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About - Joy Jama's Portfolio</title>
-<link href="../assets/css/main.css" rel="stylesheet" type="text/css">
-<!-- GSAP and ScrollTrigger scripts -->
+<!-- Import GSAP for the animations -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+<!-- Import ScrollTrigger plugin for GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
 
 <style>
-  /* Existing styles... */
+  /* Styles specific to the About page */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    overflow-x: hidden;
+  }
 
-  /* Add some custom styles for your animated elements here */
-  .story-section {
-    opacity: 0; /* Start with sections hidden for the animation */
+  .navbar {
+    background-color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .navbar a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+  }
+
+  .navbar a:hover {
+    color: #007bff;
+  }
+
+  .content {
+    width: 80%;
+    margin: 20px auto;
+  }
+
+  .section {
+    opacity: 0; /* Set to 0 to hide initially */
+    margin-bottom: 50px; /* Space between sections */
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <a href="/">Home</a> | 
-  <a href="/about/">About</a> | 
-  <a href="/resume/">Resume</a> | 
-  <a href="/chatbot/">Chatbot</a> | 
-  <a href="/webscraping/">Web Scraping</a> | 
-  <a href="/app-highlight/">App Highlight</a> | 
-  <a href="/contact/">Contact</a>
+  <a href="../">Home</a> | 
+  <a href="../resume/">Resume</a> | 
+  <a href="../chatbot/">Chatbot</a> | 
+  <a href="../webscraping/">Web Scraping</a> | 
+  <a href="../app-highlight/">App Highlight</a> | 
+  <a href="../contact/">Contact</a>
 </div>
 
-<div class="content" id="aboutContainer">
+<div class="content">
   <h1>About Joy Jama</h1>
-  <div class="story-section intro">Hi, I'm Joy...</div>
-  <div class="story-section earlyBeginnings">In the beginning, there were computers...</div>
-  <!-- Add more story sections here -->
+  <!-- Each section will animate in -->
+  <div class="section intro">
+    <p>Hi, I'm Joy. I've had a lifelong passion for technology, ever since I started helping my fifth-grade teacher with classroom computers...</p>
+  </div>
+  <div class="section journey">
+    <p>My tech journey is decorated with various experiences, including building UNIX servers in the Air Force and mastering web development...</p>
+  </div>
+  <div class="section philosophy">
+    <p>I believe in continuous learning and applying creativity to technology, which is why I love JavaScript and interactive web experiences...</p>
+  </div>
+  <!-- Add more sections as needed -->
 </div>
 
 <script>
-  // Create a GSAP timeline
-  var tl = gsap.timeline({ 
-    defaults: { duration: 1 },
-    scrollTrigger: {
-      trigger: "#aboutContainer",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: true
-    }
+  // Ensure DOM is loaded before running animations
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GSAP timeline
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".content",
+        start: "top center",
+        end: "bottom bottom",
+        scrub: true
+      }
+    });
+
+    // Define animations for each section
+    tl.from(".intro", { y: 50, opacity: 0, duration: 1 })
+      .from(".journey", { y: 50, opacity: 0, duration: 1 })
+      .from(".philosophy", { y: 50, opacity: 0, duration: 1 });
+      // Add more from() calls for additional sections
   });
-
-  // Start the story
-  tl.from(".intro", { y: -50, opacity: 0 })
-    .to(".intro", { y: 0, opacity: 1 });
-
-  // Early Beginnings
-  tl.addLabel("earlyBeginnings")
-    .from(".earlyBeginnings", { x: -100, opacity: 0 })
-    .to(".earlyBeginnings", { x: 0, opacity: 1 });
-
-  // ... continue adding animations for other sections here
-
 </script>
 
 </body>
