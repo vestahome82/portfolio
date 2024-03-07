@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy Jama - Portfolio</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #333; /* Ensuring text color is not white */
+  }
+
+  #counter {
+    font-size: 2em;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center it exactly */
+    z-index: 1;
+  }
+
+  #name-title {
+    font-size: 3em; /* Adjusted for less aggressiveness */
+    opacity: 0; /* Initially hidden */
+    margin: 0; /* Remove default margin */
+    padding: 0;
+  }
+
+  #menu {
+    font-size: 1em; /* Smaller font for menu items */
+    opacity: 0; /* Initially hidden */
+    margin-top: 20px; /* Space between title and menu */
+  }
+</style>
+</head>
+<body>
+
+<div id="counter">0%</div>
+<h1 id="name-title" style="opacity: 0;">JOY JAMA - PORTFOLIO</h1>
+<div id="menu">
+  <p>Chatbot | Web Scraping | API Integration | Work History | About | Contact</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+<script>
+  function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      obj.textContent = Math.floor(progress * (end - start) + start) + '%';
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        // Once the counter reaches 100%, animate the title and menu
+        animateContent();
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  function animateContent() {
+    // Hide the counter
+    gsap.to("#counter", { duration: 0.5, opacity: 0 });
+
+    // Animate "JOY JAMA - PORTFOLIO" with a bounce effect
+    gsap.to("#name-title", { duration: 2, opacity: 1, ease: "bounce.out" });
+
+    // Fade in the menu items after the title
+    gsap.to("#menu", { duration: 1, opacity: 1, delay: 0.5 });
+  }
+
+  // Start the counter animation
+  animateValue(document.getElementById('counter'), 0, 100, 3000); // 3 seconds duration
+
+</script>
+
+</body>
+</html>
