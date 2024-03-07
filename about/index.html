@@ -5,103 +5,72 @@
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About - Joy Jama's Portfolio</title>
-<!-- Import GSAP for the animations -->
+<!-- GSAP and ScrollTrigger scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-<!-- Import ScrollTrigger plugin for GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
-
 <style>
-  /* Styles specific to the About page */
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    overflow-x: hidden;
-  }
-
+  /* Inline CSS just for the About page to match the rest of the site */
   .navbar {
-    background-color: #fff;
     padding: 10px 0;
     text-align: center;
+    background-color: #fff; /* Adjust color to match the rest of the site */
   }
 
   .navbar a {
     color: #333;
     text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
+    margin: 0 10px;
+    font-size: 18px; /* Adjust font size as needed */
   }
 
   .navbar a:hover {
-    color: #007bff;
+    text-decoration: underline;
   }
 
   .content {
-    width: 80%;
-    margin: 20px auto;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
   }
-
-  .section {
-    opacity: 0; /* Set to 0 to hide initially */
-    margin-bottom: 50px; /* Space between sections */
-  }
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
+  
+  /* You can add more inline styles for other elements */
 </style>
 </head>
 <body>
 
 <div class="navbar">
-  <a href="../">Home</a> | 
-  <a href="../resume/">Resume</a> | 
-  <a href="../chatbot/">Chatbot</a> | 
-  <a href="../webscraping/">Web Scraping</a> | 
-  <a href="../app-highlight/">App Highlight</a> | 
+  <a href="../">Home</a> |
+  <a href="../resume/">Resume</a> |
+  <a href="../chatbot/">Chatbot</a> |
+  <a href="../webscraping/">Web Scraping</a> |
+  <a href="../app-highlight/">App Highlight</a> |
   <a href="../contact/">Contact</a>
 </div>
 
-<div class="content">
+<div class="content" id="aboutContainer">
   <h1>About Joy Jama</h1>
-  <!-- Each section will animate in -->
-  <div class="section intro">
-    <p>Hi, I'm Joy. I've had a lifelong passion for technology, ever since I started helping my fifth-grade teacher with classroom computers...</p>
-  </div>
-  <div class="section journey">
-    <p>My tech journey is decorated with various experiences, including building UNIX servers in the Air Force and mastering web development...</p>
-  </div>
-  <div class="section philosophy">
-    <p>I believe in continuous learning and applying creativity to technology, which is why I love JavaScript and interactive web experiences...</p>
-  </div>
-  <!-- Add more sections as needed -->
+  <p>Hi, I'm Joy. I've had a lifelong passion for technology...</p>
+  <!-- Add additional content here -->
 </div>
 
 <script>
-  // Ensure DOM is loaded before running animations
+  // Ensure the DOM is fully loaded before executing scripts
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize GSAP timeline
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".content",
-        start: "top center",
-        end: "bottom bottom",
-        scrub: true
-      }
+    // Initialize GSAP animations
+    gsap.from(".content h1", { opacity: 0, y: -20, duration: 1 });
+    gsap.from(".content p", { opacity: 0, y: 20, duration: 1, delay: 0.5 });
+    
+    // If you want to include ScrollTrigger animations, you can initialize them here
+    // For example:
+    ScrollTrigger.create({
+      trigger: ".content",
+      start: "top center",
+      end: "bottom center",
+      onEnter: () => gsap.to(".content p", { opacity: 1, y: 0 }),
+      onLeave: () => gsap.to(".content p", { opacity: 0, y: 20 }),
+      onEnterBack: () => gsap.to(".content p", { opacity: 1, y: 0 }),
+      onLeaveBack: () => gsap.to(".content p", { opacity: 0, y: 20 }),
     });
-
-    // Define animations for each section
-    tl.from(".intro", { y: 50, opacity: 0, duration: 1 })
-      .from(".journey", { y: 50, opacity: 0, duration: 1 })
-      .from(".philosophy", { y: 50, opacity: 0, duration: 1 });
-      // Add more from() calls for additional sections
   });
 </script>
 
