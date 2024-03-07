@@ -5,14 +5,18 @@
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About - Joy Jama's Portfolio</title>
+<!-- GSAP and ScrollTrigger scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
 <style>
+  /* Inline CSS just for the About page to match the rest of the site */
   .navbar {
     background-color: #f0f0f0; /* Match the color to your homepage */
     padding: 10px 0; /* Add some padding */
     margin-bottom: 20px; /* Space before the content */
     text-align: center; /* Center the navigation links */
   }
-  
+
   .navbar a {
     color: #333;
     text-decoration: none;
@@ -43,17 +47,14 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   /* GSAP Animations */
   .gsap-section {
     opacity: 0; /* Start with sections hidden for the animation */
   }
-  
+
   /* Add other styles as needed */
 </style>
-<!-- GSAP and ScrollTrigger scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -67,7 +68,7 @@
   <a href="../resume/resume.pdf" target="_blank">Resume</a>
 </div>
 
-<div class="content">
+<div class="content" id="aboutContainer">
   <h1>About Joy Jama</h1>
   <div class="gsap-section">
     <p>Hi, I'm Joy. Welcome to my world...</p>
@@ -76,18 +77,20 @@
 </div>
 
 <script>
-  // GSAP animations code goes here
-  // Example of a simple fade-in animation for the content section
-  gsap.to(".gsap-section", { 
-    opacity: 1, 
-    duration: 1,
-    delay: 0.5,
-    scrollTrigger: {
-      trigger: ".gsap-section",
+  // Ensure the DOM is fully loaded before executing scripts
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GSAP animations
+    gsap.from(".content h1", { opacity: 0, y: -20, duration: 1 });
+    gsap.from(".content p", { opacity: 0, y: 20, duration: 1, delay: 0.5 });
+    
+    // If you want to include ScrollTrigger animations, you can initialize them here
+    // For example:
+    ScrollTrigger.create({
+      trigger: ".content",
       start: "top center",
       end: "bottom bottom",
       toggleActions: "play none none none"
-    },
+    });
   });
 </script>
 
