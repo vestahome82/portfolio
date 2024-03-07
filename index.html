@@ -17,30 +17,41 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #333; /* Ensuring text color is not white */
+    color: #333;
   }
 
   #counter {
     font-size: 2em;
     position: absolute;
-    top: 50%; /* Center vertically */
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center it exactly */
+    transform: translate(-50%, -50%);
     z-index: 1;
   }
 
   #name-title {
-    font-size: 3em; /* Adjusted for less aggressiveness */
-    opacity: 0; /* Initially hidden */
-    margin: 0; /* Remove default margin */
+    font-size: 3em;
+    opacity: 0;
+    margin: 0;
     padding: 0;
   }
 
   #menu {
-    font-size: 1em; /* Smaller font for menu items */
-    opacity: 0; /* Initially hidden */
-    margin-top: 20px; /* Space between title and menu */
+    font-size: 1em;
+    opacity: 0;
+    margin-top: 20px;
   }
+
+  #menu a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  #menu a:hover {
+    text-decoration: underline;
+  }
+
 </style>
 </head>
 <body>
@@ -48,7 +59,12 @@
 <div id="counter">0%</div>
 <h1 id="name-title" style="opacity: 0;">JOY JAMA - PORTFOLIO</h1>
 <div id="menu">
-  <p>Chatbot | Web Scraping | API Integration | Work History | About | Contact</p>
+  <a href="chatbot/">Chatbot</a> |
+  <a href="webscraping/">Web Scraping</a> |
+  <a href="app-highlight/">App Highlight</a> |
+  <a href="about/">About</a> |
+  <a href="contact/">Contact</a> |
+  <a href="resume/resume.pdf" target="_blank">Resume</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
