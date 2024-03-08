@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Section Name - Joy Jama's Portfolio</title>
+<title>Contact - Joy Jama's Portfolio</title>
 <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
 <style>
   .navbar {
-    background-color: #f0f0f0; /* Match the color to your homepage */
-    padding: 10px 0; /* Add some padding */
-    margin-bottom: 20px; /* Space before the content */
-    text-align: center; /* Center the navigation links */
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    text-align: center;
   }
   
   .navbar a {
@@ -45,6 +45,37 @@
     align-items: center;
   }
 
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  form label {
+    display: block;
+    margin-top: 20px;
+  }
+
+  form input, form textarea, form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-top: 20px;
+  }
+
+  form button:hover {
+    background-color: #0056b3;
+  }
+
   /* Add other styles as needed */
 </style>
 </head>
@@ -60,11 +91,20 @@
 </div>
 
 <div class="content">
-  <h1>Section Name</h1>
-  <p>This section is under construction. Please check back soon!</p>
-  <!-- Your content goes here -->
+  <h1>Contact Joy Jama</h1>
+  <form action="https://formspree.io/f/mbjnkyrl" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="_replyto" required>
+
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <button type="submit">Send</button>
+  </form>
 </div>
 
 </body>
 </html>
-
