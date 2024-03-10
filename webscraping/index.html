@@ -13,9 +13,6 @@
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         .navbar {
             background-color: #f0f0f0;
@@ -35,25 +32,17 @@
             text-decoration: underline;
         }
         .main-content {
-            padding-top: 60px; /* Space for fixed navbar */
-            display: flex;
+            padding-top: 60px;
             width: 100%;
-            max-width: 960px; /* Same width as SVG to align them */
-            margin: auto; /* Center the main content */
-        }
-        .description-container {
-            flex-basis: 30%; /* Allocate width to description */
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .chart-container {
-            flex-basis: 70%; /* Allocate width to chart */
-            padding: 20px;
-            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         svg {
-            width: 100%; /* SVG takes the full width of the chart container */
+            width: 70%; /* Responsive width */
             height: 500px; /* Fixed height for SVG */
+            border: 1px solid #ccc; /* Border added for SVG visibility */
         }
     </style>
 </head>
@@ -68,26 +57,16 @@
     </div>
 
     <div class="main-content">
-        <div class="description-container">
-            <h2>Web Scraping Insights</h2>
-            <p>Explore the trends in programming languages and technologies, visualized through web scraping data. This bubble chart represents the popularity and demand of various coding languages, offering a dynamic and interactive way to understand the landscape of programming.</p>
-        </div>
-        <div class="chart-container">
-            <svg></svg>
-        </div>
+        <svg></svg>
     </div>
 
     <script>
         const dataUrl = 'codetrends.json'; // Path to your JSON data
-        const chartContainer = document.querySelector('.chart-container');
-        const svg = d3.select('.chart-container svg')
-            .attr('width', chartContainer.clientWidth)
-            .attr('height', 500);
+        const svg = d3.select('svg');
+        const width = svg.style('width').replace('px', '');
+        const height = svg.style('height').replace('px', '');
 
         d3.json(dataUrl).then(data => {
-            const width = svg.node().getBoundingClientRect().width;
-            const height = +svg.attr('height');
-            
             const radiusScale = d3.scaleSqrt()
                 .domain([0, d3.max(data, d => d.value)])
                 .range([0, 50]);
@@ -105,16 +84,16 @@
                     .attr('r', d => radiusScale(d.value))
                     .attr('cx', d => d.x)
                     .attr('cy', d => d.y)
-                    .attr('fill', '#007bff'); // Changed fill to match button color
+                    .attr('fill', '#007bff');
 
                 const labels = svg.selectAll('text')
                     .data(data)
                     .join('text')
                     .attr('x', d => d.x)
-                    .attr('y', d => d.y + 5) // Center text vertically within bubbles
+                    .attr('y', d => d.y + 5)
                     .attr('text-anchor', 'middle')
                     .text(d => d.language)
-                    .attr('fill', 'white'); // Ensure text color is white for visibility
+                    .attr('fill', 'white');
             }
         });
     </script>
