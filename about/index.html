@@ -37,14 +37,25 @@
             text-align: center; /* Center text for all content */
         }
 
-        .content {
+        .about-wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
             height: 100vh; /* Full height to ensure vertical centering */
-            padding: 50px; /* Add some padding */
-            box-sizing: border-box; /* Include padding in the element's total width and height */
+        }
+
+        .about-text {
+            flex: 1;
+            max-width: 50%;
+            padding-right: 50px;
+            text-align: right;
+        }
+
+        .about-image {
+            flex: 1;
+            max-width: 50%;
+            background-image: url('y2k.jpg'); /* Adjust the path to your image */
+            background-size: cover;
+            background-position: center;
         }
 
         .gsap-section {
@@ -57,7 +68,6 @@
             transform: translateY(0px); /* Reset to original position on hover */
         }
 
-        /* Style adjustments for larger text and emphasis */
         h1.gsap-section {
             font-size: 2.5rem; /* Larger font size for the welcome message */
             margin-bottom: 0.5rem; /* Space between the welcome message and the following text */
@@ -67,40 +77,32 @@
             font-size: 1.25rem; /* Slightly larger font size for readability */
             margin-bottom: 1rem; /* Space between paragraphs */
         }
-
-        /* Button styles for interaction */
-        .story-button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-top: 20px; /* Space above the button */
-        }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a href="../">Home</a> | 
-    <a href="../chatbot/">Chatbot</a> | 
-    <a href="../webscraping/">Web Scraping</a> | 
-    <a href="../app-highlight/">App Highlight</a> | 
-    <a href="../about/">About</a> | 
-    <a href="../contact/">Contact</a> | 
+    <a href="/">Home</a> |
+    <a href="/about/">About</a> |
+    <a href="/chatbot/">Chatbot</a> |
+    <a href="/webscraping/">Web Scraping</a> |
+    <a href="/app-highlight/">App Highlight</a> |
+    <a href="/contact/">Contact</a>
 </div>
 
-<div class="content" id="aboutContainer">
-    <h1 class="gsap-section">Hi! I'm Joy!</h1>
-    <p class="gsap-section">Welcome! Here’s a snapshot of what I do: I build websites, reveal patterns in data, create interactive chatbots, and develop apps. If you need a hand with a project or want to bring an idea to life online, you're in the right place. Take a look around and let’s chat about what we can make together!</p>
+<div class="about-wrapper">
+    <div class="about-image"></div>
+    <div class="about-text">
+        <h1 class="gsap-section">Hi, I'm Joy!</h1>
+        <p class="gsap-section">Welcome! Here’s a snapshot of what I do: I build websites, reveal patterns in data, create interactive chatbots, and develop apps. If you need a hand with a project or want to bring an idea to life online, you're in the right place. Take a look around and let’s chat about what we can make together!</p>
+    </div>
 </div>
 
 <script>
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.fromTo(".gsap-section", 
-        { opacity: 0, y: 30 }, 
+        { opacity: 0, y: 30 },
         {
             opacity: 1, 
             y: 0,
@@ -116,11 +118,6 @@
             }
         }
     );
-
-    // Functionality for the 'Learn More About Me' button
-    document.querySelector('.story-button').addEventListener('click', function() {
-        // Toggle additional about content here
-    });
 </script>
 
 </body>
