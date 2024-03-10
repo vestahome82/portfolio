@@ -157,17 +157,19 @@
             .then(response => response.json())
             .then(data => chatflowData = data)
             .catch(error => console.error('Error loading chatflow data:', error));
-       function sendMessage() {
+        
+      function sendMessage() {
     const message = inputField.value.trim();
     if (message) {
         displayMessage(message, 'user');
-        getResponse(message);
-        inputField.value = ''; // Clear input field after sending
+        // Mock response
+        setTimeout(() => displayMessage("This is a test response.", 'chatflow'), 1000);
+        inputField.value = ''; // Clear input field
     }
     // Prevent page refresh on form submit if using a form
     return false;
 }
-
+        
 function displayMessage(message, type) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', type + '-message');
