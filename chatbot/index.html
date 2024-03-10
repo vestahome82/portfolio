@@ -13,6 +13,8 @@
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
             color: #333;
+            display: flex;
+            flex-direction: column;
         }
         .navbar {
             background-color: #f0f0f0;
@@ -37,8 +39,7 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            padding-top: 50px; /* Space for navbar */
-            margin-top: 50px; /* Additional space for navbar */
+            padding-top: 60px; /* Height of navbar */
             flex-grow: 1;
         }
         .chat-info {
@@ -57,16 +58,17 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             background-color: #fff;
-            margin-left: 20px;
-            flex-shrink: 0;
-            position: relative; /* Adjusted for GSAP animation */
-            margin-top: 60px; /* Align with chat info */
-        }
-        #message-container, #chat-input {
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
         }
         #message-container {
+            flex: 1;
+            padding: 20px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse; /* Start from the bottom */
         }
         .message {
             display: flex;
@@ -77,21 +79,33 @@
         }
         .user-message {
             background-color: #dcf8c6;
+            align-self: flex-end;
         }
         .chatflow-message {
             background-color: #ececec;
+            align-self: flex-start;
         }
-        #chat-input input, #chat-input button {
+        #chat-input {
             padding: 10px;
-            margin-right: 10px;
+            background-color: #f0f2f5;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #ececec;
+        }
+        #chat-input input {
+            flex-grow: 1;
+            padding: 10px;
             border-radius: 20px;
             border: 1px solid #d0d0d0;
+            margin-right: 10px;
             outline: none;
         }
         #chat-input button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
             background-color: #007bff;
             color: #fff;
-            border: none;
             cursor: pointer;
         }
     </style>
@@ -109,7 +123,6 @@
         <div class="chat-info">
             <p>Discover how a custom chatbot can engage your audience, answer queries, and provide automated assistance tailored to your business needs.</p>
             <p>Integrate advanced AI capabilities to make your chatbot smarter, providing a more intuitive and helpful experience for your users.</p>
-            <!-- Add more content as needed -->
         </div>
         <div id="chat-container">
             <div id="message-container">
@@ -157,8 +170,8 @@
             messageDiv.classList.add('message', type + '-message');
             const icon = type === 'user' ? 'fa-user' : 'fa-robot';
             messageDiv.innerHTML = `<i class="fa ${icon} message-icon"></i> ${message}`;
-            messageContainer.appendChild(messageDiv);
-            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            messageContainer.prepend(messageDiv); // Add new messages to the top
+            messageContainer.scrollTop = 0; // Stay scrolled to the newest message
         }
         function getResponse(userMessage) {
             const matchedResponse = chatflowData.find(item => 
