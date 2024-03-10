@@ -13,6 +13,9 @@
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .navbar {
             background-color: #f0f0f0;
@@ -32,17 +35,20 @@
             text-decoration: underline;
         }
         .main-content {
-            padding-top: 60px;
-            width: 100%;
+            padding-top: 60px; /* Space for fixed navbar */
             display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            width: 100%;
+            max-width: 960px; /* Same width as SVG to align them */
+            margin: auto; /* Center the main content */
+        }
+        .chart-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
         }
         svg {
-            width: 70%; /* Responsive width */
+            width: 100%; /* SVG takes the full width of the chart container */
             height: 500px; /* Fixed height for SVG */
-            border: 1px solid #ccc; /* Border added for SVG visibility */
         }
     </style>
 </head>
@@ -57,24 +63,30 @@
     </div>
 
     <div class="main-content">
-        <svg></svg>
+        <div class="chart-container">
+            <svg></svg>
+        </div>
     </div>
 
     <script>
         const dataUrl = 'codetrends.json'; // Path to your JSON data
-        const svg = d3.select('svg');
-        const width = svg.style('width').replace('px', '');
-        const height = svg.style('height').replace('px', '');
+        const chartContainer = document.querySelector('.chart-container');
+        const svg = d3.select('.chart-container svg')
+            .attr('width', chartContainer.clientWidth)
+            .attr('height', 500);
 
         d3.json(dataUrl).then(data => {
+            const width = svg.node().getBoundingClientRect().width;
+            const height = +svg.attr('height');
+            
             const radiusScale = d3.scaleSqrt()
                 .domain([0, d3.max(data, d => d.value)])
-                .range([0, 50]);
+                .range([0, 80]); // Adjusted for better visualization
 
             const simulation = d3.forceSimulation(data)
-                .force('charge', d3.forceManyBody().strength(15))
+                .force('charge', d3.forceManyBody().strength(5))
                 .force('center', d3.forceCenter(width / 2, height / 2))
-                .force('collision', d3.forceCollide().radius(d => radiusScale(d.value) + 1))
+                .force('collision', d3.forceCollide().radius(d => radiusScale(d.value)))
                 .on('tick', ticked);
 
             function ticked() {
@@ -84,16 +96,16 @@
                     .attr('r', d => radiusScale(d.value))
                     .attr('cx', d => d.x)
                     .attr('cy', d => d.y)
-                    .attr('fill', '#007bff');
+                    .attr('fill', '#007bff'); // Changed fill to match the navbar color
 
                 const labels = svg.selectAll('text')
                     .data(data)
                     .join('text')
                     .attr('x', d => d.x)
-                    .attr('y', d => d.y + 5)
+                    .attr('y', d => d.y + 5) // Center text vertically within bubbles
                     .attr('text-anchor', 'middle')
                     .text(d => d.language)
-                    .attr('fill', 'white');
+                    .attr('fill', 'white'); // Ensure text color is white for visibility
             }
         });
     </script>
