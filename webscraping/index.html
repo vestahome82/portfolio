@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Scraping Insights - Joy Jama's Portfolio</title>
-    <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body, html {
@@ -34,27 +33,23 @@
         .navbar a:hover {
             text-decoration: underline;
         }
-        .main-content {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 60px;
+        .content {
+            padding: 60px 20px 20px 20px; /* Adjusted padding to accommodate navbar */
             width: 100%;
-            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .chart-container, .description-container {
-            flex: 1;
-            margin: 10px;
+        .description {
+            text-align: center;
+            margin-bottom: 20px;
         }
         svg {
-            max-width: 100%;
-            height: auto;
-        }
-        .description-container {
-            text-align: left;
-        }
-        .description-container h2, .description-container p {
-            margin: 0 0 20px 0;
+            max-width: 960px;
+            height: 500px;
+            border: 1px solid #ccc; /* Border added for SVG visibility */
         }
     </style>
 </head>
@@ -68,25 +63,24 @@
         <a href="../contact/">Contact</a>
     </div>
 
-    <div class="main-content">
-        <div class="description-container">
+    <div class="content">
+        <div class="description">
             <h2>Web Scraping Insights</h2>
             <p>Explore the trends in programming languages and technologies, visualized through web scraping data. This bubble chart represents the popularity and demand of various coding languages, offering a dynamic and interactive way to understand the landscape of programming.</p>
         </div>
-        <div class="chart-container">
-            <svg></svg>
-        </div>
+        <svg></svg>
     </div>
 
     <script>
         const dataUrl = 'codetrends.json'; // Path to your JSON data
 
-        const svg = d3.select('svg')
+        // Adjusted to select the SVG within the content area
+        const svg = d3.select('.content').select('svg')
             .attr('width', '100%')
-            .attr('height', 500);
+            .attr('height', '500'); // Fixed height
 
         d3.json(dataUrl).then(data => {
-            const width = document.querySelector('.chart-container').clientWidth;
+            const width = svg.node().getBoundingClientRect().width;
             const height = +svg.attr('height');
             
             const radiusScale = d3.scaleSqrt()
@@ -106,7 +100,7 @@
                     .attr('r', d => radiusScale(d.value))
                     .attr('cx', d => d.x)
                     .attr('cy', d => d.y)
-                    .attr('fill', 'cyan');
+                    .attr('fill', '#007bff'); // Changed fill to match button color
 
                 const labels = svg.selectAll('text')
                     .data(data)
@@ -115,7 +109,7 @@
                     .attr('y', d => d.y + 5) // Center text vertically within bubbles
                     .attr('text-anchor', 'middle')
                     .text(d => d.language)
-                    .attr('fill', 'black'); // Change text color for visibility
+                    .attr('fill', 'white'); // Ensure text color is white for visibility
             }
         });
     </script>
