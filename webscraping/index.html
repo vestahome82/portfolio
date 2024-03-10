@@ -1,70 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Section Name - Joy Jama's Portfolio</title>
-<link href="../assets/css/main.css" rel="stylesheet" type="text/css">
-<style>
-  .navbar {
-    background-color: #f0f0f0; /* Match the color to your homepage */
-    padding: 10px 0; /* Add some padding */
-    margin-bottom: 20px; /* Space before the content */
-    text-align: center; /* Center the navigation links */
-  }
-  
-  .navbar a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-  }
-
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: #333;
-    background-color: #f0f0f0;
-  }
-
-  .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Add other styles as needed */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping Insights - Joy Jama's Portfolio</title>
+    <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 60px;
+            width: 100%;
+            padding: 20px;
+        }
+        .chart-container, .description-container {
+            flex: 1;
+            margin: 10px;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .description-container {
+            text-align: left;
+        }
+        .description-container h2, .description-container p {
+            margin: 0 0 20px 0;
+        }
+    </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="../">Home</a> | 
+        <a href="../chatbot/">Chatbot</a> | 
+        <a href="../webscraping/">Web Scraping</a> | 
+        <a href="../app-highlight/">App Highlight</a> | 
+        <a href="../about/">About</a> | 
+        <a href="../contact/">Contact</a>
+    </div>
 
-<div class="navbar">
-    <a href="../">Home</a> | 
-    <a href="../chatbot/">Chatbot</a> | 
-    <a href="../webscraping/">Web Scraping</a> | 
-    <a href="../app-highlight/">App Highlight</a> | 
-    <a href="../about/">About</a> | 
-    <a href="../contact/">Contact</a> | 
-</div>
+    <div class="main-content">
+        <div class="description-container">
+            <h2>Web Scraping Insights</h2>
+            <p>Explore the trends in programming languages and technologies, visualized through web scraping data. This bubble chart represents the popularity and demand of various coding languages, offering a dynamic and interactive way to understand the landscape of programming.</p>
+        </div>
+        <div class="chart-container">
+            <svg></svg>
+        </div>
+    </div>
 
-<div class="content">
-  <h1>Section Name</h1>
-  <p>This section is under construction. Please check back soon!</p>
-  <!-- Your content goes here -->
-</div>
+    <script>
+        const dataUrl = 'codetrends.json'; // Path to your JSON data
 
+        const svg = d3.select('svg')
+            .attr('width', '100%')
+            .attr('height', 500);
+
+        d3.json(dataUrl).then(data => {
+            const width = document.querySelector('.chart-container').clientWidth;
+            const height = +svg.attr('height');
+            
+            const radiusScale = d3.scaleSqrt()
+                .domain([0, d3.max(data, d => d.value)])
+                .range([0, 50]);
+
+            const simulation = d3.forceSimulation(data)
+                .force('charge', d3.forceManyBody().strength(15))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(d => radiusScale(d.value) + 1))
+                .on('tick', ticked);
+
+            function ticked() {
+                const bubbles = svg.selectAll('circle')
+                    .data(data)
+                    .join('circle')
+                    .attr('r', d => radiusScale(d.value))
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y)
+                    .attr('fill', 'cyan');
+
+                const labels = svg.selectAll('text')
+                    .data(data)
+                    .join('text')
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y + 5) // Center text vertically within bubbles
+                    .attr('text-anchor', 'middle')
+                    .text(d => d.language)
+                    .attr('fill', 'black'); // Change text color for visibility
+            }
+        });
+    </script>
 </body>
 </html>
-
