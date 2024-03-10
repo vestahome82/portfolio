@@ -1,94 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="google" content="notranslate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About - Joy Jama's Portfolio</title>
-<!-- GSAP and ScrollTrigger scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
-<style>
-  .navbar {
-    background-color: #f0f0f0;
-    padding: 10px 0;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Joy Jama's Portfolio</title>
+    <!-- GSAP and ScrollTrigger scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    <style>
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-  .navbar a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 18px;
-  }
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
 
-  .navbar a:hover {
-    text-decoration: underline;
-  }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
 
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    text-align: center; /* Center text for all content */
-  }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center; /* Center text for all content */
+        }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; /* Center content horizontally */
-    height: 100vh; /* Full height to ensure vertical centering */
-  }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center content horizontally */
+            height: 100vh; /* Full height to ensure vertical centering */
+            padding: 50px; /* Add some padding */
+            box-sizing: border-box; /* Include padding in the element's total width and height */
+        }
 
-  .gsap-section {
-    opacity: 0; /* Start with sections hidden */
-    transform: translateY(20px); /* Start slightly lower */
-  }
-</style>
+        .gsap-section {
+            opacity: 0; /* Start with sections hidden */
+            transform: translateY(20px); /* Start slightly lower */
+            transition: transform 0.3s ease-out; /* Smooth transition for hover effect */
+        }
+
+        .gsap-section:hover {
+            transform: translateY(0px); /* Reset to original position on hover */
+        }
+
+        /* Style adjustments for larger text and emphasis */
+        h1.gsap-section {
+            font-size: 2.5rem; /* Larger font size for the welcome message */
+            margin-bottom: 0.5rem; /* Space between the welcome message and the following text */
+        }
+
+        p.gsap-section {
+            font-size: 1.25rem; /* Slightly larger font size for readability */
+            margin-bottom: 1rem; /* Space between paragraphs */
+        }
+
+        /* Button styles for interaction */
+        .story-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px; /* Space above the button */
+        }
+    </style>
 </head>
 <body>
 
 <div class="navbar">
-  <a href="../">Home</a> | 
-  <a href="../chatbot/">Chatbot</a> | 
-  <a href="../webscraping/">Web Scraping</a> | 
-  <a href="../app-highlight/">App Highlight</a> | 
-  <a href="../about/">About</a> | 
-  <a href="../contact/">Contact</a> | 
+    <a href="../">Home</a> | 
+    <a href="../chatbot/">Chatbot</a> | 
+    <a href="../webscraping/">Web Scraping</a> | 
+    <a href="../app-highlight/">App Highlight</a> | 
+    <a href="../about/">About</a> | 
+    <a href="../contact/">Contact</a> | 
 </div>
 
 <div class="content" id="aboutContainer">
-  <h1 class="gsap-section">WELCOME!</h1>
-  <p class="gsap-section">My name is Joy and I am a system engineer with 20 years of experience...</p>
-  <p class="gsap-section">I enjoyed making this website and am excited to share it with you.</p>
-  <p class="gsap-section">Please check out some of the links above and feel free to contact me...</p>
+    <h1 class="gsap-section">Hi! I'm Joy!</h1>
+    <p class="gsap-section">Welcome! Here’s a snapshot of what I do: I build websites, reveal patterns in data, create interactive chatbots, and develop apps. If you need a hand with a project or want to bring an idea to life online, you're in the right place. Take a look around and let’s chat about what we can make together!</p>
 </div>
 
 <script>
-  gsap.registerPlugin(ScrollTrigger);
-  
-  gsap.fromTo(".gsap-section", 
-    { opacity: 0, y: 30 }, 
-    {
-      opacity: 1, 
-      y: 0,
-      duration: 1,
-      stagger: 0.3,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#aboutContainer",
-        start: "top 80%", 
-        end: "bottom top",
-        toggleActions: "play none none reverse",
-        once: true // Ensure the animation only plays once
-      }
-    }
-  );
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(".gsap-section", 
+        { opacity: 0, y: 30 }, 
+        {
+            opacity: 1, 
+            y: 0,
+            duration: 1,
+            stagger: 0.3,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#aboutContainer",
+                start: "top 80%", 
+                end: "bottom top",
+                toggleActions: "play none none reverse",
+                once: true // Ensure the animation only plays once
+            }
+        }
+    );
+
+    // Functionality for the 'Learn More About Me' button
+    document.querySelector('.story-button').addEventListener('click', function() {
+        // Toggle additional about content here
+    });
 </script>
 
 </body>
