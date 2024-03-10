@@ -135,8 +135,12 @@
         </div>
     </div>
     <script>
+       // Ensure DOM is loaded before executing script
+    document.addEventListener('DOMContentLoaded', function() {
+        // GSAP animation for chat info
         gsap.registerPlugin(ScrollTrigger);
         const chatInfo = document.querySelector('.chat-info');
+
         gsap.from(chatInfo, {
             duration: 1,
             autoAlpha: 0,
@@ -150,40 +154,48 @@
                 once: true
             }
         });
-       const messageContainer = document.getElementById('message-container');
+
+        // Chat functionality
+        const messageContainer = document.getElementById('message-container');
         const inputField = document.getElementById('chat-message-input');
         let chatflowData = [];
 
+        // Fetch chatflow data
         fetch('chatflow.json')
             .then(response => response.json())
             .then(data => chatflowData = data)
             .catch(error => console.error('Error loading chatflow data:', error));
 
-        function sendMessage() {
+        // Function to handle sending a message
+        window.sendMessage = function() {
             const message = inputField.value.trim();
             if (message) {
                 displayMessage(message, 'user');
                 getResponse(message);
-                inputField.value = ''; // Clear input field
+                inputField.value = ''; // Clear input field after sending
             }
+            // Prevent form submission if inside a form
+            return false;
         }
 
+        // Function to display a message
         function displayMessage(message, type) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', type + '-message');
             const icon = type === 'user' ? 'fa-user' : 'fa-robot';
             messageDiv.innerHTML = `<i class="fa ${icon} message-icon"></i> ${message}`;
             messageContainer.appendChild(messageDiv);
-            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+            // Scroll to the newest message
+            messageContainer.scrollTop = messageContainer.scrollHeight;
         }
 
+        // Function to get a response from chatflow data
         function getResponse(userMessage) {
-            const matchedResponse = chatflowData.find(item => 
-                item.question.toLowerCase() === userMessage.toLowerCase());
-            const response = matchedResponse ? matchedResponse.answer : 
-                "I'm not sure how to answer that, but I'm learning every day!";
+            const matchedResponse = chatflowData.find(item => item.question.toLowerCase() === userMessage.toLowerCase());
+            const response = matchedResponse ? matchedResponse.answer : "I'm not sure how to answer that, but I'm learning every day!";
             setTimeout(() => displayMessage(response, 'chatflow'), 1000); // Simulate response delay
         }
+    });
     </script>
 </body>
 </html>
