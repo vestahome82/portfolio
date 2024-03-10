@@ -15,6 +15,9 @@
             text-align: center;
             width: 100%;
             box-sizing: border-box;
+            position: fixed; /* This positions your navbar */
+            top: 0; /* Align the navbar at the top */
+            z-index: 10; /* This ensures that the navbar will be on top */
         }
 
         .navbar a {
@@ -34,28 +37,27 @@
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
             color: #333;
+            display: flex;
+            justify-content: center;
             text-align: center; /* Center text for all content */
         }
 
-        .about-wrapper {
+        .content {
             display: flex;
-            align-items: center; /* Center content vertically */
-            height: 100vh; /* Full height to ensure vertical centering */
-        }
-
-        .about-text {
-            flex: 1;
-            max-width: 50%;
-            padding-right: 50px;
-            text-align: right;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 50px;
+            box-sizing: border-box;
         }
 
         .about-image {
-            flex: 1;
             max-width: 50%;
-            background-image: url('y2k.jpg'); /* Adjust the path to your image */
-            background-size: cover;
-            background-position: center;
+        }
+
+        .about-text {
+            max-width: 50%;
+            padding: 0 20px; /* Adjust padding as needed */
         }
 
         .gsap-section {
@@ -68,6 +70,7 @@
             transform: translateY(0px); /* Reset to original position on hover */
         }
 
+        /* Style adjustments for larger text and emphasis */
         h1.gsap-section {
             font-size: 2.5rem; /* Larger font size for the welcome message */
             margin-bottom: 0.5rem; /* Space between the welcome message and the following text */
@@ -77,23 +80,24 @@
             font-size: 1.25rem; /* Slightly larger font size for readability */
             margin-bottom: 1rem; /* Space between paragraphs */
         }
+
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a href="/">Home</a> |
-    <a href="/about/">About</a> |
-    <a href="/chatbot/">Chatbot</a> |
-    <a href="/webscraping/">Web Scraping</a> |
-    <a href="/app-highlight/">App Highlight</a> |
-    <a href="/contact/">Contact</a>
+    <a href="../">Home</a> | 
+    <a href="../chatbot/">Chatbot</a> | 
+    <a href="../webscraping/">Web Scraping</a> | 
+    <a href="../app-highlight/">App Highlight</a> | 
+    <a href="../about/">About</a> | 
+    <a href="../contact/">Contact</a> | 
 </div>
 
-<div class="about-wrapper">
-    <div class="about-image"></div>
-    <div class="about-text">
-        <h1 class="gsap-section">Hi, I'm Joy!</h1>
+<div class="content">
+    <img src="y2k.jpg" alt="Y2K style image" class="about-image">
+    <div class="about-text" id="aboutContainer">
+        <h1 class="gsap-section">Hi! I'm Joy!</h1>
         <p class="gsap-section">Welcome! Here’s a snapshot of what I do: I build websites, reveal patterns in data, create interactive chatbots, and develop apps. If you need a hand with a project or want to bring an idea to life online, you're in the right place. Take a look around and let’s chat about what we can make together!</p>
     </div>
 </div>
@@ -102,7 +106,7 @@
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.fromTo(".gsap-section", 
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 30 }, 
         {
             opacity: 1, 
             y: 0,
@@ -118,6 +122,9 @@
             }
         }
     );
+
+    // Add functionality for any additional interactions if necessary
+
 </script>
 
 </body>
