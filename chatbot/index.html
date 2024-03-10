@@ -150,35 +150,32 @@
                 once: true
             }
         });
-        const messageContainer = document.getElementById('message-container');
+       const messageContainer = document.getElementById('message-container');
         const inputField = document.getElementById('chat-message-input');
         let chatflowData = [];
+
         fetch('chatflow.json')
             .then(response => response.json())
             .then(data => chatflowData = data)
             .catch(error => console.error('Error loading chatflow data:', error));
-        
-      function sendMessage() {
-    const message = inputField.value.trim();
-    if (message) {
-        displayMessage(message, 'user');
-        // Mock response
-        setTimeout(() => displayMessage("This is a test response.", 'chatflow'), 1000);
-        inputField.value = ''; // Clear input field
-    }
-    // Prevent page refresh on form submit if using a form
-    return false;
-}
-        
-function displayMessage(message, type) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', type + '-message');
-    const icon = type === 'user' ? 'fa-user' : 'fa-robot';
-    messageDiv.innerHTML = `<i class="fa ${icon} message-icon"></i> ${message}`;
-    messageContainer.appendChild(messageDiv);
-    // Scroll to the newest message
-    messageContainer.scrollTop = messageContainer.scrollHeight - messageContainer.clientHeight;
-}
+
+        function sendMessage() {
+            const message = inputField.value.trim();
+            if (message) {
+                displayMessage(message, 'user');
+                getResponse(message);
+                inputField.value = ''; // Clear input field
+            }
+        }
+
+        function displayMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type + '-message');
+            const icon = type === 'user' ? 'fa-user' : 'fa-robot';
+            messageDiv.innerHTML = `<i class="fa ${icon} message-icon"></i> ${message}`;
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
+        }
 
         function getResponse(userMessage) {
             const matchedResponse = chatflowData.find(item => 
