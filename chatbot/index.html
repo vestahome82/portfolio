@@ -5,143 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatFlow - Joy Jama's Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
+            color: #333;
         }
-
         .navbar {
             background-color: #f0f0f0;
             padding: 10px 0;
-            margin-bottom: 20px;
             text-align: center;
             position: fixed;
             width: 100%;
             top: 0;
+            z-index: 10;
         }
-        
         .navbar a {
             color: #333;
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
+            margin: 0 10px;
+            font-size: 18px;
         }
-        
         .navbar a:hover {
             text-decoration: underline;
         }
-
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px; /* Space for navbar */
+            margin-top: 50px; /* Additional space for navbar */
+            flex-grow: 1;
+        }
+        .chat-info {
+            flex: 1;
+            padding: 20px;
+            max-width: 45%;
+            margin-top: 60px; /* Align with chat container */
+        }
+        .chat-info p {
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
         #chat-container {
             width: 350px;
             height: 500px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-top: 60px; /* Give space for navbar */
+            margin-left: 20px;
+            flex-shrink: 0;
+            position: relative; /* Adjusted for GSAP animation */
+            margin-top: 60px; /* Align with chat info */
         }
-
-        #message-container {
-            flex: 1;
+        #message-container, #chat-input {
             padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
         }
-
+        #message-container {
+            overflow-y: auto;
+        }
         .message {
             display: flex;
             align-items: center;
             padding: 10px;
             border-radius: 20px;
-            margin: 5px;
-            font-size: 0.9rem;
+            margin: 5px 0;
         }
-
         .user-message {
-            align-self: flex-end;
             background-color: #dcf8c6;
         }
-
         .chatflow-message {
-            align-self: flex-start;
             background-color: #ececec;
         }
-
-        .message-icon {
-            font-size: 1.2rem;
+        #chat-input input, #chat-input button {
+            padding: 10px;
             margin-right: 10px;
-        }
-
-        #chat-input {
-            padding: 10px;
-            background-color: #f0f2f5;
-            display: flex;
-            align-items: center;
-            border-top: 1px solid #ececec;
-        }
-
-        #chat-input input {
-            flex-grow: 1;
-            padding: 10px;
             border-radius: 20px;
             border: 1px solid #d0d0d0;
-            margin-right: 10px;
             outline: none;
         }
-
         #chat-input button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 20px;
             background-color: #007bff;
             color: #fff;
+            border: none;
             cursor: pointer;
-            outline: none;
         }
     </style>
 </head>
 <body>
-<div class="navbar">
-    <a href="../">Home</a> | 
-    <a href="../chatbot/">Chatbot</a> | 
-    <a href="../webscraping/">Web Scraping</a> | 
-    <a href="../app-highlight/">App Highlight</a> | 
-    <a href="../about/">About</a> | 
-    <a href="../contact/">Contact</a> | 
-</div>
-
-    <div id="chat-container">
-        <div id="message-container">
-            <!-- Messages will be displayed here -->
+    <div class="navbar">
+        <a href="../">Home</a>
+        <a href="../chatbot/">Chatbot</a>
+        <a href="../webscraping/">Web Scraping</a>
+        <a href="../app-highlight/">App Highlight</a>
+        <a href="../about/">About</a>
+        <a href="../contact/">Contact</a>
+    </div>
+    <div class="main-content">
+        <div class="chat-info">
+            <p>Discover how a custom chatbot can engage your audience, answer queries, and provide automated assistance tailored to your business needs.</p>
+            <p>Integrate advanced AI capabilities to make your chatbot smarter, providing a more intuitive and helpful experience for your users.</p>
+            <!-- Add more content as needed -->
         </div>
-        <div id="chat-input">
-            <input id="chat-message-input" type="text" placeholder="Type a message..." autocomplete="off">
-            <button onclick="sendMessage()">Send</button>
+        <div id="chat-container">
+            <div id="message-container">
+                <!-- Messages will be displayed here -->
+            </div>
+            <div id="chat-input">
+                <input id="chat-message-input" type="text" placeholder="Type a message..." autocomplete="off">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
-
     <script>
+        gsap.registerPlugin(ScrollTrigger);
+        const chatInfo = document.querySelector('.chat-info');
+        gsap.from(chatInfo, {
+            duration: 1,
+            autoAlpha: 0,
+            x: -100,
+            ease: 'power1.out',
+            scrollTrigger: {
+                trigger: '.main-content',
+                start: 'top 80%',
+                end: 'bottom top',
+                toggleActions: 'play none none reverse',
+                once: true
+            }
+        });
         const messageContainer = document.getElementById('message-container');
         const inputField = document.getElementById('chat-message-input');
         let chatflowData = [];
-
         fetch('chatflow.json')
             .then(response => response.json())
             .then(data => chatflowData = data)
             .catch(error => console.error('Error loading chatflow data:', error));
-
         function sendMessage() {
             const message = inputField.value.trim();
             if (message) {
@@ -150,7 +152,6 @@
                 inputField.value = ''; // Clear input field
             }
         }
-
         function displayMessage(message, type) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', type + '-message');
@@ -159,7 +160,6 @@
             messageContainer.appendChild(messageDiv);
             messageContainer.scrollTop = messageContainer.scrollHeight; // Scroll to the bottom
         }
-
         function getResponse(userMessage) {
             const matchedResponse = chatflowData.find(item => 
                 item.question.toLowerCase() === userMessage.toLowerCase());
